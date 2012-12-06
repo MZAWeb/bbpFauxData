@@ -1,0 +1,3 @@
+[submodule "lib/Faker"]
+	path = lib/Faker
+	url = https://github.com/fzaninotto/Faker.git
