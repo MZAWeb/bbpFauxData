@@ -2,7 +2,8 @@ bbpFauxData
 ===========
 
 Quick and dirty plugin to help you populate a bbPress instance with faux data to test performance
-It uses fzaninotto/Faker to generate data that seems real.
+
+It uses https://github.com/fzaninotto/Faker to generate data that seems real.
 
 Example
 ======
