@@ -10,7 +10,7 @@ Plugin Name: Dummy Data
 */
 
 
-class DummyData {
+class bbpFauxData {
 
 	private $faker;
 
