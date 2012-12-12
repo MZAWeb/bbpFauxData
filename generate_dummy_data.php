@@ -95,7 +95,8 @@ class DummyData {
 
 		$reply = array( 'post_parent'    => $topic,
 		                'post_author'    => $this->get_random_existing_user_id(),
-		                'post_content'   => $this->faker->text( $maxNbChars = $text_size ) );
+		                'post_content'   => $this->faker->text( $maxNbChars = $text_size ),
+		                'post_date'      => $date );
 
 		$meta = array( 'author_ip' => $this->faker->ipv4, 'forum_id'  => $forum, 'topic_id'  => $topic );
 
