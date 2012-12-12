@@ -9,7 +9,7 @@ Example
 
 Once you install and activate this plugin, you can do:
 
-´´´
+'''
 ini_set( 'max_execution_time', 30000 );
 ini_set( 'memory_limit', '1024M' );
 
@@ -36,4 +36,4 @@ for ( $i = 0; $i < REPLIES; $i++ ) {
 	$dd->generate_reply();
 }
 
-´´´
+'''
