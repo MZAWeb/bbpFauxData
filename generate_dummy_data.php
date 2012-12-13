@@ -48,7 +48,7 @@ class bbpFauxData {
 
 		$forum = array( 'post_author'    => $this->get_random_existing_user_id(),
 		                'post_title'     => ucwords( $this->faker->word ),
-		                'post_date' );
+		                'post_date'      => $date->format( 'Y-m-d H:i:s' ) );
 
 		$ret = bbp_insert_forum( $forum, array() );
 
@@ -96,7 +96,7 @@ class bbpFauxData {
 		$reply = array( 'post_parent'    => $topic,
 		                'post_author'    => $this->get_random_existing_user_id(),
 		                'post_content'   => $this->faker->text( $maxNbChars = $text_size ),
-		                'post_date'      => $date );
+		                'post_date'      => $date->format( 'Y-m-d H:i:s' ) );
 
 		$meta = array( 'author_ip' => $this->faker->ipv4, 'forum_id'  => $forum, 'topic_id'  => $topic );
 
