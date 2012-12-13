@@ -21,6 +21,10 @@ class bbpFauxData {
 
 	public function generate_user() {
 
+		if ( !function_exists( 'wp_hash_password' ) ) {
+			_doing_it_wrong( 'bbpFauxData->generate_user()', "This function should be called after plugins_loaded", '0.1' );
+			return false;
+		}
 
 		$first = $this->faker->firstName;
 		$last  = $this->faker->lastName;
