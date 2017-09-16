@@ -29,13 +29,13 @@ class bbpFauxData {
 		$first = $this->faker->firstName;
 		$last  = $this->faker->lastName;
 
-		$user_data = array( 'user_pass'    => 'password',
-		                    'user_login'   => sanitize_user( strtolower( $first . '.' . $last ) ),
-		                    'display_name' => $first . ' ' . $last,
-		                    'first_name'   => $first,
-		                    'last_name'    => $last,
-		                    'user_email'   => $this->faker->email
-
+		$user_data = array(
+			'user_pass'    => 'password',
+			'user_login'   => sanitize_user( strtolower( $first . '.' . $last ) ),
+			'display_name' => $first . ' ' . $last,
+			'first_name'   => $first,
+			'last_name'    => $last,
+			'user_email'   => $this->faker->safeEmail,
 		);
 
 		$ret = wp_insert_user( $user_data );
@@ -50,13 +50,22 @@ class bbpFauxData {
 
 		$date = $this->faker->dateTimeBetween( $startDate = '-4 years', $endDate = '-3 years' );
 
-		$forum = array( 'post_author'    => $this->get_random_existing_user_id(),
-		                'post_title'     => ucwords( $this->faker->word ),
-		                'post_date'      => $date->format( 'Y-m-d H:i:s' ) );
+		$forum = array(
+			'post_author'    => $this->get_random_existing_user_id(),
+			'post_title'     => ucwords( $this->faker->word ),
+			'post_date'      => $date->format( 'Y-m-d H:i:s' ),
+			'post_content'   => ucwords( $this->faker->sentence( $nbWords = 6, $variableNbWords = true ) ),
+		);
 
-		$ret = bbp_insert_forum( $forum, array() );
+		$meta = array(
+			'forum_type' => 'forum',
+			'status'     => 'open',
+		);
 
-		unset( $topic );
+		$ret = bbp_insert_forum( $forum, $meta );
+
+		unset( $forum );
+		unset( $meta );
 
 		return $ret;
 
@@ -70,13 +79,18 @@ class bbpFauxData {
 		if ( $text_size < 20 )
 			$text_size = 500;
 
-		$topic = array( 'post_parent'    => $forum,
-		                'post_author'    => $this->get_random_existing_user_id(),
-		                'post_content'   => $this->faker->text( $maxNbChars = $text_size ),
-		                'post_title'     => $this->faker->sentence,
-		                'post_date'      => $date->format( 'Y-m-d H:i:s' ) );
+		$topic = array(
+			'post_parent'    => $forum,
+			'post_author'    => $this->get_random_existing_user_id(),
+			'post_content'   => $this->faker->text( $maxNbChars = $text_size ),
+			'post_title'     => $this->faker->sentence,
+			'post_date'      => $date->format( 'Y-m-d H:i:s' ),
+		);
 
-		$meta = array( 'author_ip' => $this->faker->ipv4, 'forum_id' => $forum, );
+		$meta = array(
+			'author_ip' => $this->faker->ipv4,
+			'forum_id' => $forum,
+		);
 
 		$ret = bbp_insert_topic( $topic, $meta );
 
@@ -97,12 +111,18 @@ class bbpFauxData {
 		if ( $text_size < 20 )
 			$text_size = 500;
 
-		$reply = array( 'post_parent'    => $topic,
-		                'post_author'    => $this->get_random_existing_user_id(),
-		                'post_content'   => $this->faker->text( $maxNbChars = $text_size ),
-		                'post_date'      => $date->format( 'Y-m-d H:i:s' ) );
+		$reply = array(
+			'post_parent'    => $topic,
+			'post_author'    => $this->get_random_existing_user_id(),
+			'post_content'   => $this->faker->text( $maxNbChars = $text_size ),
+			'post_date'      => $date->format( 'Y-m-d H:i:s' ),
+		);
 
-		$meta = array( 'author_ip' => $this->faker->ipv4, 'forum_id'  => $forum, 'topic_id'  => $topic );
+		$meta = array(
+			'author_ip' => $this->faker->ipv4,
+			'forum_id'  => $forum,
+			'topic_id'  => $topic,
+		);
 
 		$ret = bbp_insert_reply( $reply, $meta );
 
