@@ -34,7 +34,7 @@ class bbpFauxData {
 		                    'display_name' => $first . ' ' . $last,
 		                    'first_name'   => $first,
 		                    'last_name'    => $last,
-		                    'user_email'   => $this->faker->email
+		                    'user_email'   => $this->faker->safeEmail
 
 		);
 
